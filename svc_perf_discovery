@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# IBM Storwize V7000 volume/mdisk autodiscovery shell script for Zabbix
+#
+# 2012 Matvey Marinin
+#
+# Returns volume and mdisk list in JSON format for "_Special_Storwize_Perf" Zabbix autodiscovery template:
+# (http://www.zabbix.com/documentation/2.0/manual/discovery/low_level_discovery)
+#
+# Usage:
+#   specify discovery rule with key svc_perf_discovery["{HOST.CONN}"] 
+#
+# Parameters:
+#   $1 = SVC/Storwize cluster name (dev-svc, svc1-blk)
+#
+
+set -e
+
+#echo `date` $1 >> /var/cache/zabbix/svc_perf_discovery_debug
+
+/usr/bin/python /etc/zabbix/externalscripts/svc_perf_discovery.py --cluster "$1" --user zabbix --password z62bdySBhw68d

@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+# IBM Storwize V7000 performance monitoring shell script for Zabbix
+#
+# Sends perf data from svc_perf_wbem.py to Zabbix with zabbix_sender
+# Handles all caching and logging, called from /etc/cron.d/svc_perf_cron every 5 min.
+#
+# 2012 Matvey Marinin
+# 
+# Usage:
+#   svc_perf <cluster>
+#
+# Arguments:
+#   cluster = Dns name or IP of Storwize V7000 block node (not Unified mgmt node!)
+#
+# 
+set -e
+
+CLUSTER=$1
+
+CACHE_FILE=/var/cache/zabbix/svc_perf.$CLUSTER.cache
+ERR_LOG=/var/cache/zabbix/svc_perf.$CLUSTER.errlog
+
+WBEM_USER=zabbix
+WBEM_PWD=z62bdySBhw68d
+
+echo >>"$ERR_LOG"
+date >>"$ERR_LOG"
+/usr/bin/python /etc/zabbix/externalscripts/svc_perf_wbem.py --cluster $CLUSTER --user "$WBEM_USER" --password "$WBEM_PWD" --cachefile "$CACHE_FILE" 2>>"$ERR_LOG" | zabbix_sender -z 127.0.0.1 -I 127.0.0.1 -T -i - -v >>"$ERR_LOG" 2>&1
+date >>"$ERR_LOG"
+
