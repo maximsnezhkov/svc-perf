@@ -76,78 +76,86 @@ if cachedTimestamps is None:
 
 #debug
 #print >> sys.stderr, 'Timestamp cache:', cachedTimestamps
+
+def enumNames(cimClass):
+  '''Enum storage objects and return dict{id:name}'''
+  names = {}
+  for obj in conn.EnumerateInstances(cimClass):
+    deviceID = obj.properties['DeviceID'].value
+    if deviceID:
+      names[str(deviceID)] = obj.properties['ElementName'].value
+  return names
+
   
 for cluster in cluster:
-  
   #debug
   print >> sys.stderr, 'Connecting to', cluster  
   
   conn = pywbem.WBEMConnection('https://'+cluster, (user, password), 'root/ibm') 
   conn.debug = True
-   
+
   ##enumerate volumes in cluster
-  volumes = conn.EnumerateInstances('IBMTSSVC_StorageVolume')
-  for vol in volumes: ## vol is IBMTSSVC_StorageVolume
-    vol_stats = conn.Associators(
-                                 vol.path,
-                                 AssocClass='IBMTSSVC_StorageVolumeStatisticalData'
-                                 )
+  volumes = enumNames('IBMTSSVC_StorageVolume')
 
-    ## vol_stats[0] is IBMTSSVC_StorageVolumeStatistics
-    if len(vol_stats) > 0:
-      ps = vol_stats[0].properties
-           
-      timestamp = calendar.timegm(ps['StatisticTime'].value.datetime.timetuple())
+  ##get volume stats
+  stats = conn.EnumerateInstances('IBMTSSVC_StorageVolumeStatistics')
+  for stat in stats:
+    ##parse property InstanceID = "StorageVolumeStats 46" to get volume ID
+    statID = stat.properties['InstanceID'].value.split()[1] 
+    vol_name = volumes[statID]
+    ps = stat.properties
+    
+    timestamp = calendar.timegm(ps['StatisticTime'].value.datetime.timetuple())
+    
+    ## check cache and don't output same timestamp values
+    cache_key = '%s.%s.%s' % (cluster, 'volume', vol_name)
+    if (cache_key in cachedTimestamps) and (timestamp == cachedTimestamps[cache_key]):
+      print >> sys.stderr, 'old timestamp: %s = %d' % (cache_key, timestamp)
+      continue
       
-      ## check cache and don't output same timestamp values
-      cache_key = '%s.%s.%s' % (cluster, 'volume', vol.properties['ElementName'].value)
-      if (cache_key in cachedTimestamps) and (timestamp == cachedTimestamps[cache_key]):
-        print >> sys.stderr, 'old timestamp: %s = %d' % (cache_key, timestamp)
-        continue
-        
-      cachedTimestamps[cache_key] = timestamp
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesRead', 'volume', vol.properties['ElementName'].value, timestamp, ps['KBytesRead'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesWritten', 'volume', vol.properties['ElementName'].value, timestamp, ps['KBytesWritten'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesTransferred',  'volume', vol.properties['ElementName'].value, timestamp, ps['KBytesTransferred'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadIOs', 'volume', vol.properties['ElementName'].value, timestamp, ps['ReadIOs'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteIOs', 'volume', vol.properties['ElementName'].value, timestamp, ps['WriteIOs'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'TotalIOs', 'volume', vol.properties['ElementName'].value, timestamp, ps['TotalIOs'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'IOTimeCounter', 'volume', vol.properties['ElementName'].value, timestamp, ps['IOTimeCounter'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadIOTimeCounter', 'volume', vol.properties['ElementName'].value, timestamp, ps['ReadIOTimeCounter'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteIOTimeCounter', 'volume', vol.properties['ElementName'].value, timestamp, ps['WriteIOTimeCounter'].value)
-      
-  
-  ##now numerate mdisks in cluster
-  mdisks = conn.EnumerateInstances('IBMTSSVC_BackendVolume')
-  for mdisk in mdisks: ## mdisk is IBMTSSVC_BackendVolume
-    md_stats = conn.Associators(
-                                  mdisk.path,
-                                  AssocClass='IBMTSSVC_BackendVolumeStatisticalData'
-                                  )
+    cachedTimestamps[cache_key] = timestamp
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesRead', 'volume', vol_name, timestamp, ps['KBytesRead'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesWritten', 'volume', vol_name, timestamp, ps['KBytesWritten'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesTransferred',  'volume', vol_name, timestamp, ps['KBytesTransferred'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadIOs', 'volume', vol_name, timestamp, ps['ReadIOs'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteIOs', 'volume', vol_name, timestamp, ps['WriteIOs'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'TotalIOs', 'volume', vol_name, timestamp, ps['TotalIOs'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'IOTimeCounter', 'volume', vol_name, timestamp, ps['IOTimeCounter'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadIOTimeCounter', 'volume', vol_name, timestamp, ps['ReadIOTimeCounter'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteIOTimeCounter', 'volume', vol_name, timestamp, ps['WriteIOTimeCounter'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadHitIOs', 'volume', vol_name, timestamp, ps['ReadHitIOs'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteHitIOs', 'volume', vol_name, timestamp, ps['WriteHitIOs'].value)
 
-    ## md_stats[0] is IBMTSSVC_BackendVolumeStatistics
-    if len(md_stats) > 0:
-      ps = md_stats[0].properties
+
+  ##now enumerate mdisks in cluster
+  mdisks = enumNames('IBMTSSVC_BackendVolume')
+
+  ##get mdisk stats
+  stats = conn.EnumerateInstances('IBMTSSVC_BackendVolumeStatistics')
+  for stat in stats:
+    statID = stat.properties['InstanceID'].value.split()[1] 
+    mdisk_name = mdisks[statID]
+    ps = stat.properties
+    
+    timestamp = calendar.timegm(ps['StatisticTime'].value.datetime.timetuple())
       
-      timestamp = calendar.timegm(ps['StatisticTime'].value.datetime.timetuple())
+    ## check cache and don't output same timestamp values
+    cache_key = '%s.%s.%s' % (cluster, 'mdisk', mdisk_name)
+    if (cache_key in cachedTimestamps) and (timestamp == cachedTimestamps[cache_key]):
+      print >> sys.stderr, 'old timestamp: %s = %d' % (cache_key, timestamp)
+      continue
       
-      ## check cache and don't output same timestamp values
-      cache_key = '%s.%s.%s' % (cluster, 'mdisk', mdisk.properties['ElementName'].value)
-      if (cache_key in cachedTimestamps) and (timestamp == cachedTimestamps[cache_key]):
-        print >> sys.stderr, 'old timestamp: %s = %d' % (cache_key, timestamp)
-        continue
-        
-      cachedTimestamps[cache_key] = timestamp
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesRead', 'mdisk', mdisk.properties['ElementName'].value, timestamp, ps['KBytesRead'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesWritten', 'mdisk', mdisk.properties['ElementName'].value, timestamp, ps['KBytesWritten'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesTransferred',  'mdisk', mdisk.properties['ElementName'].value, timestamp, ps['KBytesTransferred'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadIOs', 'mdisk', mdisk.properties['ElementName'].value, timestamp, ps['ReadIOs'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteIOs', 'mdisk', mdisk.properties['ElementName'].value, timestamp, ps['WriteIOs'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'TotalIOs', 'mdisk', mdisk.properties['ElementName'].value, timestamp, ps['TotalIOs'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'IOTimeCounter', 'mdisk', mdisk.properties['ElementName'].value, timestamp, ps['IOTimeCounter'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadIOTimeCounter', 'mdisk', mdisk.properties['ElementName'].value, timestamp, ps['ReadIOTimeCounter'].value)
-      print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteIOTimeCounter', 'mdisk', mdisk.properties['ElementName'].value, timestamp, ps['WriteIOTimeCounter'].value)
- 
+    cachedTimestamps[cache_key] = timestamp
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesRead', 'mdisk', mdisk_name, timestamp, ps['KBytesRead'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesWritten', 'mdisk', mdisk_name, timestamp, ps['KBytesWritten'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesTransferred',  'mdisk', mdisk_name, timestamp, ps['KBytesTransferred'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadIOs', 'mdisk', mdisk_name, timestamp, ps['ReadIOs'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteIOs', 'mdisk', mdisk_name, timestamp, ps['WriteIOs'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'TotalIOs', 'mdisk', mdisk_name, timestamp, ps['TotalIOs'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'IOTimeCounter', 'mdisk', mdisk_name, timestamp, ps['IOTimeCounter'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadIOTimeCounter', 'mdisk', mdisk_name, timestamp, ps['ReadIOTimeCounter'].value)
+    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteIOTimeCounter', 'mdisk', mdisk_name, timestamp, ps['WriteIOTimeCounter'].value)
+
 try:
   if 'none' != cachefile:
     cachedTimestamps = json.dump( cachedTimestamps, open(cachefile, 'w') )
