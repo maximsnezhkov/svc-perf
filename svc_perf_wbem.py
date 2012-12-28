@@ -3,17 +3,22 @@
 #
 # IBM Storwize V7000 performance monitoring script for Zabbix
 #
-# v3.1
+# v4
 # 2012 Matvey Marinin
 #
 # Returns statistics in zabbix_sender format (http://www.zabbix.com/documentation/2.2/manpages/zabbix_sender):
-# <hostname> <key> <timestamp> <value> 
-# svc1-blk svc.volume.back-node.KBytesRead 1350976915 3148
-# svc1-blk svc.volume.back-node.KBytesWritten 1350976915 1774572
-# svc1-blk svc.volume.back-node.KBytesTransferred 1350976915 1777720
-# svc1-blk svc.volume.back-node.ReadIOs 1350976915 2231
-# svc1-blk svc.volume.back-node.WriteIOs 1350976915 3619
-# svc1-blk svc.volume.back-node.TotalIOs 1350976915 5850
+# <hostname> <key> <timestamp> <value>
+# svc1-blk svc.ReadRateKB[mdisk,40] 1356526942 14470.7333333
+# svc1-blk svc.WriteRateKB[mdisk,40] 1356526942 11102.84
+# svc1-blk svc.TotalRateKB[mdisk,40] 1356526942 25573.5733333
+# svc1-blk svc.ReadIORate[mdisk,40] 1356526942 609.356666667
+# svc1-blk svc.WriteIORate[mdisk,40] 1356526942 121.946666667
+# svc1-blk svc.TotalIORate[mdisk,40] 1356526942 731.303333333
+# svc1-blk svc.ReadIOTime[mdisk,40] 1356526942 5.29899839722
+# svc1-blk svc.WriteIOTime[mdisk,40] 1356526942 9.65088563306
+# svc1-blk svc.ReadIOPct[mdisk,40] 1356526942 83.3247489642
+#
+# Use with template _Special_Storwize_Perf_v4
 #
 # Performance stats is collected with SVC CIM provider (WBEM):
 # http://pic.dhe.ibm.com/infocenter/storwize/unified_ic/index.jsp?topic=%2Fcom.ibm.storwize.v7000.unified.doc%2Fsvc_umlblockprofile.html
@@ -35,6 +40,141 @@ import getopt, sys, datetime, calendar, json
 def usage():
   print >> sys.stderr, "Usage: svc_perf_wbem.py --cluster <cluster1> [--cluster <cluster2>...] --user <username> --password <pwd> --cachefile <path>|none"
 
+##############################################################
+
+RAW_COUNTERS = ['timestamp', 'KBytesRead', 'KBytesWritten', 'KBytesTransferred', 'ReadIOs', 'WriteIOs', 'TotalIOs', 'IOTimeCounter', 'ReadIOTimeCounter', 'WriteIOTimeCounter', 'ReadHitIOs', 'WriteHitIOs']
+MDISK_COUNTERS = ['ReadRateKB', 'WriteRateKB', 'TotalRateKB', 'ReadIORate', 'WriteIORate', 'TotalIORate', 'ReadIOTime', 'WriteIOTime', 'ReadIOPct', 'ReadSizeKB', 'WriteSizeKB']
+VOLUME_COUNTERS = ['ReadRateKB', 'WriteRateKB', 'TotalRateKB', 'ReadIORate', 'WriteIORate', 'TotalIORate', 'ReadIOTime', 'WriteIOTime', 'ReadIOPct', 'ReadCacheHit', 'WriteCacheHit', 'ReadSizeKB', 'WriteSizeKB']
+  
+##############################################################
+def enumNames(cimClass):
+  ''' Enum storage objects and return dict{id:name} '''
+  names = {}
+  for obj in conn.ExecQuery( 'WQL', 'SELECT DeviceID, ElementName FROM %s' % (cimClass) ):
+    deviceID = obj.properties['DeviceID'].value
+    if deviceID:
+      names[str(deviceID)] = obj.properties['ElementName'].value
+  return names
+
+##############################################################
+def calculateStats(old_counters, new_counters):
+  ''' Calculate perf statistic values from raw counters '''
+  stats = {}
+
+  #debug
+  #print >> sys.stderr, 'cached:', old_counters
+  #print >> sys.stderr, 'current:', new_counters
+
+  ''' check that we have timestamp in cached sample '''
+  if 'timestamp' in old_counters:
+    timespan = new_counters['timestamp'] - old_counters['timestamp']
+
+    if timespan:
+      deltaReadKB  = float(new_counters['KBytesRead'] - old_counters['KBytesRead'])
+      deltaWriteKB = float(new_counters['KBytesWritten'] - old_counters['KBytesWritten'])
+      deltaTotalKB = float(new_counters['KBytesTransferred'] - old_counters['KBytesTransferred'])
+      deltaReadIO  = float(new_counters['ReadIOs'] - old_counters['ReadIOs'])
+      deltaWriteIO = float(new_counters['WriteIOs'] - old_counters['WriteIOs'])
+      deltaTotalIO = float(new_counters['TotalIOs'] - old_counters['TotalIOs'])
+      deltaReadIOTimeCounter = float(new_counters['ReadIOTimeCounter'] - old_counters['ReadIOTimeCounter'])
+      deltaWriteIOTimeCounter = float(new_counters['WriteIOTimeCounter'] - old_counters['WriteIOTimeCounter'])
+      
+      stats['ReadRateKB']  = deltaReadKB  / timespan
+      stats['WriteRateKB'] = deltaWriteKB / timespan
+      stats['TotalRateKB'] = deltaTotalKB / timespan
+      stats['ReadIORate']  = deltaReadIO  / timespan
+      stats['WriteIORate'] = deltaWriteIO / timespan
+      stats['TotalIORate'] = deltaTotalIO / timespan
+
+      if (deltaReadIO > 0) and (deltaReadIOTimeCounter > 0):
+        stats['ReadIOTime'] = deltaReadIOTimeCounter / deltaReadIO
+      
+      if (deltaWriteIO > 0) and (deltaWriteIOTimeCounter > 0):
+        stats['WriteIOTime'] = deltaWriteIOTimeCounter / deltaWriteIO
+      
+      if (deltaTotalIO > 0) and (deltaReadIO > 0):
+        stats['ReadIOPct'] = deltaReadIO / deltaTotalIO * 100
+
+      if (deltaReadKB > 0) and (deltaReadIO > 0):
+        stats['ReadSizeKB'] = deltaReadKB / deltaReadIO
+
+      if (deltaWriteKB > 0) and (deltaWriteIO > 0):
+        stats['WriteSizeKB'] = deltaWriteKB / deltaWriteIO
+                  
+      ''' Cache Hit stats - volume only '''
+      if 'ReadHitIOs' in new_counters and 'ReadHitIOs' in old_counters:
+        deltaReadHitIO = float(new_counters['ReadHitIOs'] - old_counters['ReadHitIOs'])
+        if (deltaReadIO > 0) and (deltaReadHitIO > 0):
+          stats['ReadCacheHit'] = deltaReadHitIO / deltaReadIO * 100
+          #print >> sys.stderr, 'deltaReadHitIOs=%d, deltaReadIOs=%d, ' % (deltaReadHitIO, deltaReadIO)
+
+      if 'WriteHitIOs' in new_counters and 'WriteHitIOs' in old_counters:
+        deltaWriteHitIO = float(new_counters['WriteHitIOs'] - old_counters['WriteHitIOs'])
+        if (deltaWriteIO > 0) and (deltaWriteHitIO > 0):
+          stats['WriteCacheHit'] = deltaWriteHitIO / deltaWriteIO * 100
+          #print >> sys.stderr, 'deltaWriteHitIOs=%d, deltaWriteIOs=%d, ' % (deltaWriteHitIO, deltaWriteIO)
+              
+    else:
+      print >> sys.stderr, 'timespan between samples is 0, skipping'
+      
+  else:
+      print >> sys.stderr, 'no timestamp in previous sample, skipping'
+    
+  return stats
+
+##############################################################
+def collectStats(connection, elementType, elementClass, statisticsClass, elementCounters):
+
+  ##enumerate element names
+  names = enumNames(elementClass)
+
+  ##get volume stats
+  stats = conn.EnumerateInstances(statisticsClass)
+  for stat in stats:
+    ''' parse property InstanceID = "StorageVolumeStats 46" to get element ID '''
+    elementID = stat.properties['InstanceID'].value.split()[1] 
+    elementName = names[elementID]
+    ps = stat.properties
+
+    #debug
+    print >> sys.stderr
+    print >> sys.stderr, elementID, elementName
+    
+    timestamp = calendar.timegm(ps['StatisticTime'].value.datetime.timetuple())
+    
+    ''' get previous samples '''
+    cached_raw_counters = {}
+    cache_key = '%s.%s.%s' % (cluster, elementType, elementName)
+    if (cache_key in cache):
+      cached_raw_counters = cache[cache_key]
+    if cached_raw_counters is None:
+      cached_raw_counters = {}
+
+    ''' don't proceed samples with same timestamp to prevent speed calculation errors '''
+    if ('timestamp' in cached_raw_counters) and (timestamp == cached_raw_counters['timestamp']):
+      print >> sys.stderr, 'same sample: %s = %d, skipping' % (cache_key, timestamp)
+      continue
+
+    ''' get current samples '''
+    new_raw_counters = {}
+    new_raw_counters['timestamp'] = timestamp
+    for k in RAW_COUNTERS:
+      if k in ps and ps[k].value is not None:
+        new_raw_counters[k] = ps[k].value
+
+    ''' save current samples to cache '''
+    cache[cache_key] = new_raw_counters
+
+    ''' calculate statistics for Zabbix '''
+    stat_values = calculateStats(cached_raw_counters, new_raw_counters)
+
+    for s in elementCounters:
+      if s in stat_values:
+        print '%s svc.%s[%s,%s] %d %s' % (cluster, s, elementType, elementID, timestamp, stat_values[s])
+  
+##############################################################
+
+''' main script body '''
 try:
   opts, args = getopt.getopt(sys.argv[1:], "-h", ["help", "cluster=", "user=", "password=", "cachefile="])
 except getopt.GetoptError, err:
@@ -64,101 +204,32 @@ if not cluster or not user or not password or not cachefile:
   usage()
   sys.exit(2)
 
-## Loading timestamp cache from file
-cachedTimestamps = None
+## Loading stats cache from file
+cache = None
 try:
   if 'none' != cachefile:
-    cachedTimestamps = json.load( open(cachefile, 'r') )
+    cache = json.load( open(cachefile, 'r') )
 except Exception, err:
-  print >> sys.stderr, "Can't load cached timestamps:", str(err)
+  print >> sys.stderr, "Can't load cache:", str(err)
+
+''' Initialize cache if neccesary '''
+if cache is None:
+  cache = {}
   
-if cachedTimestamps is None:
-  cachedTimestamps = {}
-
-#debug
-#print >> sys.stderr, 'Timestamp cache:', cachedTimestamps
-
-def enumNames(cimClass):
-  '''Enum storage objects and return dict{id:name}'''
-  names = {}
-  for obj in conn.EnumerateInstances(cimClass):
-    deviceID = obj.properties['DeviceID'].value
-    if deviceID:
-      names[str(deviceID)] = obj.properties['ElementName'].value
-  return names
-
-  
+''' main loop '''
 for cluster in cluster:
-  #debug
   print >> sys.stderr, 'Connecting to', cluster  
   
   conn = pywbem.WBEMConnection('https://'+cluster, (user, password), 'root/ibm') 
   conn.debug = True
 
-  ##enumerate volumes in cluster
-  volumes = enumNames('IBMTSSVC_StorageVolume')
-
-  ##get volume stats
-  stats = conn.EnumerateInstances('IBMTSSVC_StorageVolumeStatistics')
-  for stat in stats:
-    ##parse property InstanceID = "StorageVolumeStats 46" to get volume ID
-    statID = stat.properties['InstanceID'].value.split()[1] 
-    vol_name = volumes[statID]
-    ps = stat.properties
-    
-    timestamp = calendar.timegm(ps['StatisticTime'].value.datetime.timetuple())
-    
-    ## check cache and don't output same timestamp values
-    cache_key = '%s.%s.%s' % (cluster, 'volume', vol_name)
-    if (cache_key in cachedTimestamps) and (timestamp == cachedTimestamps[cache_key]):
-      print >> sys.stderr, 'old timestamp: %s = %d' % (cache_key, timestamp)
-      continue
-      
-    cachedTimestamps[cache_key] = timestamp
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesRead', 'volume', vol_name, timestamp, ps['KBytesRead'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesWritten', 'volume', vol_name, timestamp, ps['KBytesWritten'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesTransferred',  'volume', vol_name, timestamp, ps['KBytesTransferred'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadIOs', 'volume', vol_name, timestamp, ps['ReadIOs'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteIOs', 'volume', vol_name, timestamp, ps['WriteIOs'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'TotalIOs', 'volume', vol_name, timestamp, ps['TotalIOs'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'IOTimeCounter', 'volume', vol_name, timestamp, ps['IOTimeCounter'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadIOTimeCounter', 'volume', vol_name, timestamp, ps['ReadIOTimeCounter'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteIOTimeCounter', 'volume', vol_name, timestamp, ps['WriteIOTimeCounter'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadHitIOs', 'volume', vol_name, timestamp, ps['ReadHitIOs'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteHitIOs', 'volume', vol_name, timestamp, ps['WriteHitIOs'].value)
+  collectStats(conn, 'volume', 'IBMTSSVC_StorageVolume', 'IBMTSSVC_StorageVolumeStatistics', VOLUME_COUNTERS)
+  collectStats(conn, 'mdisk', 'IBMTSSVC_BackendVolume', 'IBMTSSVC_BackendVolumeStatistics', MDISK_COUNTERS)
 
 
-  ##now enumerate mdisks in cluster
-  mdisks = enumNames('IBMTSSVC_BackendVolume')
-
-  ##get mdisk stats
-  stats = conn.EnumerateInstances('IBMTSSVC_BackendVolumeStatistics')
-  for stat in stats:
-    statID = stat.properties['InstanceID'].value.split()[1] 
-    mdisk_name = mdisks[statID]
-    ps = stat.properties
-    
-    timestamp = calendar.timegm(ps['StatisticTime'].value.datetime.timetuple())
-      
-    ## check cache and don't output same timestamp values
-    cache_key = '%s.%s.%s' % (cluster, 'mdisk', mdisk_name)
-    if (cache_key in cachedTimestamps) and (timestamp == cachedTimestamps[cache_key]):
-      print >> sys.stderr, 'old timestamp: %s = %d' % (cache_key, timestamp)
-      continue
-      
-    cachedTimestamps[cache_key] = timestamp
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesRead', 'mdisk', mdisk_name, timestamp, ps['KBytesRead'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesWritten', 'mdisk', mdisk_name, timestamp, ps['KBytesWritten'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'KBytesTransferred',  'mdisk', mdisk_name, timestamp, ps['KBytesTransferred'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadIOs', 'mdisk', mdisk_name, timestamp, ps['ReadIOs'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteIOs', 'mdisk', mdisk_name, timestamp, ps['WriteIOs'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'TotalIOs', 'mdisk', mdisk_name, timestamp, ps['TotalIOs'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'IOTimeCounter', 'mdisk', mdisk_name, timestamp, ps['IOTimeCounter'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'ReadIOTimeCounter', 'mdisk', mdisk_name, timestamp, ps['ReadIOTimeCounter'].value)
-    print '%s svc.%s[%s,%s] %d %s' % (cluster, 'WriteIOTimeCounter', 'mdisk', mdisk_name, timestamp, ps['WriteIOTimeCounter'].value)
-
+''' finally save cache to disk if permitted by command line argument '''
 try:
   if 'none' != cachefile:
-    cachedTimestamps = json.dump( cachedTimestamps, open(cachefile, 'w') )
+    json.dump( cache, open(cachefile, 'w') )
 except Exception, err:
-  print >> sys.stderr, "Can't save cached timestamps:", str(err)
+  print >> sys.stderr, "Can't save cache:", str(err)

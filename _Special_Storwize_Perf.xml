@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>2.0</version>
-    <date>2012-11-13T06:02:20Z</date>
+    <date>2012-12-28T12:49:47Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -9,8 +9,8 @@
     </groups>
     <templates>
         <template>
-            <template>_Special_Storwize_Perf</template>
-            <name>_Special_Storwize_Perf</name>
+            <template>_Special_Storwize_Perf_v4</template>
+            <name>_Special_Storwize_Perf_v4</name>
             <groups>
                 <group>
                     <name>Templates</name>
@@ -19,9 +19,6 @@
             <applications>
                 <application>
                     <name>Storwize Performance</name>
-                </application>
-                <application>
-                    <name>Storwize Private</name>
                 </application>
             </applications>
             <items/>
@@ -32,7 +29,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>svc_perf_discovery[&quot;{HOST.CONN}&quot;]</key>
-                    <delay>60</delay>
+                    <delay>180</delay>
                     <status>0</status>
                     <allowed_hosts/>
                     <snmpv3_securityname/>
@@ -49,24 +46,24 @@
                     <privatekey/>
                     <port/>
                     <filter>:</filter>
-                    <lifetime>730</lifetime>
+                    <lifetime>3</lifetime>
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>{#TYPE}.{#NAME}.IOTimeCounter</name>
+                            <name>{#TYPE}.{#NAME}.ReadIOPct</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>svc.IOTimeCounter[{#TYPE},{#NAME}]</key>
+                            <key>svc.ReadIOPct[{#TYPE},{#ID}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
                             <status>0</status>
-                            <value_type>3</value_type>
+                            <value_type>0</value_type>
                             <allowed_hosts>127.0.0.1</allowed_hosts>
-                            <units>ms</units>
-                            <delta>1</delta>
+                            <units>%</units>
+                            <delta>0</delta>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
                             <snmpv3_authpassphrase/>
@@ -86,26 +83,26 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>Storwize Private</name>
+                                    <name>Storwize Performance</name>
                                 </application>
                             </applications>
                             <valuemap/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#TYPE}.{#NAME}.ReadIOs</name>
+                            <name>{#TYPE}.{#NAME}.ReadIORate</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>svc.ReadIOs[{#TYPE},{#NAME}]</key>
+                            <key>svc.ReadIORate[{#TYPE},{#ID}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
                             <status>0</status>
-                            <value_type>3</value_type>
+                            <value_type>0</value_type>
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>iops</units>
-                            <delta>1</delta>
+                            <delta>0</delta>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
                             <snmpv3_authpassphrase/>
@@ -132,12 +129,12 @@
                         </item_prototype>
                         <item_prototype>
                             <name>{#TYPE}.{#NAME}.ReadIOTime</name>
-                            <type>15</type>
+                            <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>svc.ReadIOTime[{#TYPE},{#NAME}]</key>
-                            <delay>300</delay>
+                            <key>svc.ReadIOTime[{#TYPE},{#ID}]</key>
+                            <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
                             <status>0</status>
@@ -145,45 +142,6 @@
                             <allowed_hosts/>
                             <units>ms</units>
                             <delta>0</delta>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privpassphrase/>
-                            <formula>1</formula>
-                            <delay_flex/>
-                            <params>last(&quot;svc.ReadIOTimeCounter[{#TYPE},{#NAME}]&quot;)/last(&quot;svc.ReadIOs[{#TYPE},{#NAME}]&quot;)</params>
-                            <ipmi_sensor/>
-                            <data_type>0</data_type>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>Storwize Performance</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{#TYPE}.{#NAME}.ReadIOTimeCounter</name>
-                            <type>2</type>
-                            <snmp_community/>
-                            <multiplier>0</multiplier>
-                            <snmp_oid/>
-                            <key>svc.ReadIOTimeCounter[{#TYPE},{#NAME}]</key>
-                            <delay>0</delay>
-                            <history>90</history>
-                            <trends>365</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts>127.0.0.1</allowed_hosts>
-                            <units>ms</units>
-                            <delta>1</delta>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
                             <snmpv3_authpassphrase/>
@@ -203,26 +161,26 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>Storwize Private</name>
+                                    <name>Storwize Performance</name>
                                 </application>
                             </applications>
                             <valuemap/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#TYPE}.{#NAME}.ReadKBytes</name>
+                            <name>{#TYPE}.{#NAME}.ReadRateKB</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>1</multiplier>
                             <snmp_oid/>
-                            <key>svc.KBytesRead[{#TYPE},{#NAME}]</key>
+                            <key>svc.ReadRateKB[{#TYPE},{#ID}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
                             <status>0</status>
-                            <value_type>3</value_type>
+                            <value_type>0</value_type>
                             <allowed_hosts/>
                             <units>bytes</units>
-                            <delta>1</delta>
+                            <delta>0</delta>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
                             <snmpv3_authpassphrase/>
@@ -248,20 +206,20 @@
                             <valuemap/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#TYPE}.{#NAME}.TotalIOs</name>
+                            <name>{#TYPE}.{#NAME}.TotalIORate</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>svc.TotalIOs[{#TYPE},{#NAME}]</key>
+                            <key>svc.TotalIORate[{#TYPE},{#ID}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
                             <status>0</status>
-                            <value_type>3</value_type>
+                            <value_type>0</value_type>
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>iops</units>
-                            <delta>1</delta>
+                            <delta>0</delta>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
                             <snmpv3_authpassphrase/>
@@ -287,59 +245,20 @@
                             <valuemap/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#TYPE}.{#NAME}.TotalIOTime</name>
-                            <type>15</type>
-                            <snmp_community/>
-                            <multiplier>0</multiplier>
-                            <snmp_oid/>
-                            <key>svc.IOTime[{#TYPE},{#NAME}]</key>
-                            <delay>300</delay>
-                            <history>90</history>
-                            <trends>365</trends>
-                            <status>0</status>
-                            <value_type>0</value_type>
-                            <allowed_hosts/>
-                            <units>ms</units>
-                            <delta>0</delta>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privpassphrase/>
-                            <formula>1</formula>
-                            <delay_flex/>
-                            <params>last(&quot;svc.IOTimeCounter[{#TYPE},{#NAME}]&quot;)/last(&quot;svc.TotalIOs[{#TYPE},{#NAME}]&quot;)</params>
-                            <ipmi_sensor/>
-                            <data_type>0</data_type>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>Storwize Performance</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{#TYPE}.{#NAME}.TotalKBytes</name>
+                            <name>{#TYPE}.{#NAME}.TotalRateKB</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>1</multiplier>
                             <snmp_oid/>
-                            <key>svc.KBytesTransferred[{#TYPE},{#NAME}]</key>
+                            <key>svc.TotalRateKB[{#TYPE},{#ID}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
                             <status>0</status>
-                            <value_type>3</value_type>
+                            <value_type>0</value_type>
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>bytes</units>
-                            <delta>1</delta>
+                            <delta>0</delta>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
                             <snmpv3_authpassphrase/>
@@ -365,20 +284,20 @@
                             <valuemap/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#TYPE}.{#NAME}.WriteIOs</name>
+                            <name>{#TYPE}.{#NAME}.WriteIORate</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>svc.WriteIOs[{#TYPE},{#NAME}]</key>
+                            <key>svc.WriteIORate[{#TYPE},{#ID}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
                             <status>0</status>
-                            <value_type>3</value_type>
+                            <value_type>0</value_type>
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>iops</units>
-                            <delta>1</delta>
+                            <delta>0</delta>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
                             <snmpv3_authpassphrase/>
@@ -405,12 +324,12 @@
                         </item_prototype>
                         <item_prototype>
                             <name>{#TYPE}.{#NAME}.WriteIOTime</name>
-                            <type>15</type>
+                            <type>2</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>svc.WriteIOTime[{#TYPE},{#NAME}]</key>
-                            <delay>300</delay>
+                            <key>svc.WriteIOTime[{#TYPE},{#ID}]</key>
+                            <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
                             <status>0</status>
@@ -418,45 +337,6 @@
                             <allowed_hosts/>
                             <units>ms</units>
                             <delta>0</delta>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privpassphrase/>
-                            <formula>1</formula>
-                            <delay_flex/>
-                            <params>last(&quot;svc.WriteIOTimeCounter[{#TYPE},{#NAME}]&quot;)/last(&quot;svc.WriteIOs[{#TYPE},{#NAME}]&quot;)</params>
-                            <ipmi_sensor/>
-                            <data_type>0</data_type>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>Storwize Performance</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>{#TYPE}.{#NAME}.WriteIOTimeCounter</name>
-                            <type>2</type>
-                            <snmp_community/>
-                            <multiplier>0</multiplier>
-                            <snmp_oid/>
-                            <key>svc.WriteIOTimeCounter[{#TYPE},{#NAME}]</key>
-                            <delay>0</delay>
-                            <history>90</history>
-                            <trends>365</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts>127.0.0.1</allowed_hosts>
-                            <units>ms</units>
-                            <delta>1</delta>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
                             <snmpv3_authpassphrase/>
@@ -476,26 +356,26 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>Storwize Private</name>
+                                    <name>Storwize Performance</name>
                                 </application>
                             </applications>
                             <valuemap/>
                         </item_prototype>
                         <item_prototype>
-                            <name>{#TYPE}.{#NAME}.WriteKBytes</name>
+                            <name>{#TYPE}.{#NAME}.WriteRateKB</name>
                             <type>2</type>
                             <snmp_community/>
                             <multiplier>1</multiplier>
                             <snmp_oid/>
-                            <key>svc.KBytesWritten[{#TYPE},{#NAME}]</key>
+                            <key>svc.WriteRateKB[{#TYPE},{#ID}]</key>
                             <delay>0</delay>
                             <history>90</history>
                             <trends>365</trends>
                             <status>0</status>
-                            <value_type>3</value_type>
+                            <value_type>0</value_type>
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>bytes</units>
-                            <delta>1</delta>
+                            <delta>0</delta>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
                             <snmpv3_authpassphrase/>

@@ -56,14 +56,13 @@ conn.debug = True
 print '{ "data":['
 first = True
 
-volumes = conn.EnumerateInstances('IBMTSSVC_StorageVolume')
+volumes = conn.ExecQuery('WQL', 'select DeviceID, ElementName from IBMTSSVC_StorageVolume')
 for vol in volumes: ## vol is IBMTSSVC_StorageVolume
-  output.append( '{"{#TYPE}":"%s",  "{#NAME}":"%s"}' % ('volume', vol.properties['ElementName'].value) )
-  
-  
-mdisks = conn.EnumerateInstances('IBMTSSVC_BackendVolume')
+  output.append( '{"{#TYPE}":"%s", "{#NAME}":"%s", "{#ID}":"%s"}' % ('volume', vol.properties['ElementName'].value, vol.properties['DeviceID'].value) )
+   
+mdisks = conn.ExecQuery('WQL', 'select DeviceID, ElementName from IBMTSSVC_BackendVolume')
 for mdisk in mdisks: ## mdisk is IBMTSSVC_BackendVolume
-  output.append( '{"{#TYPE}":"%s",  "{#NAME}":"%s"}' % ('mdisk', mdisk.properties['ElementName'].value) )
+  output.append( '{"{#TYPE}":"%s", "{#NAME}":"%s", "{#ID}":"%s"}' % ('mdisk', mdisk.properties['ElementName'].value, mdisk.properties['DeviceID'].value) )
 
 for i, v in enumerate( output ):
   if i < len(output)-1:
