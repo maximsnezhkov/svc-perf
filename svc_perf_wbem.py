@@ -18,7 +18,7 @@
 # svc1-blk svc.WriteIOTime[mdisk,40] 1356526942 9.65088563306
 # svc1-blk svc.ReadIOPct[mdisk,40] 1356526942 83.3247489642
 #
-# Use with template _Special_Storwize_Perf_v4
+# Use with template _Special_Storwize_Perf
 #
 # Performance stats is collected with SVC CIM provider (WBEM):
 # http://pic.dhe.ibm.com/infocenter/storwize/unified_ic/index.jsp?topic=%2Fcom.ibm.storwize.v7000.unified.doc%2Fsvc_umlblockprofile.html
@@ -35,16 +35,16 @@
 #
 #
 import pywbem
-import getopt, sys, datetime, calendar, json
+import getopt, sys, datetime, time, calendar, json
 
 def usage():
   print >> sys.stderr, "Usage: svc_perf_wbem.py --cluster <cluster1> [--cluster <cluster2>...] --user <username> --password <pwd> --cachefile <path>|none"
 
 ##############################################################
 
-RAW_COUNTERS = ['timestamp', 'KBytesRead', 'KBytesWritten', 'KBytesTransferred', 'ReadIOs', 'WriteIOs', 'TotalIOs', 'IOTimeCounter', 'ReadIOTimeCounter', 'WriteIOTimeCounter', 'ReadHitIOs', 'WriteHitIOs']
-MDISK_COUNTERS = ['ReadRateKB', 'WriteRateKB', 'TotalRateKB', 'ReadIORate', 'WriteIORate', 'TotalIORate', 'ReadIOTime', 'WriteIOTime', 'ReadIOPct', 'ReadSizeKB', 'WriteSizeKB']
-VOLUME_COUNTERS = ['ReadRateKB', 'WriteRateKB', 'TotalRateKB', 'ReadIORate', 'WriteIORate', 'TotalIORate', 'ReadIOTime', 'WriteIOTime', 'ReadIOPct', 'ReadCacheHit', 'WriteCacheHit', 'ReadSizeKB', 'WriteSizeKB']
+RAW_COUNTERS = ['timestamp', 'KBytesRead', 'KBytesWritten', 'KBytesTransferred', 'ReadIOs', 'WriteIOs', 'TotalIOs', 'IOTimeCounter', 'ReadIOTimeCounter', 'WriteIOTimeCounter']
+MDISK_COUNTERS = ['ReadRateKB', 'WriteRateKB', 'TotalRateKB', 'ReadIORate', 'WriteIORate', 'TotalIORate', 'ReadIOTime', 'WriteIOTime', 'ReadIOPct']
+VOLUME_COUNTERS = ['ReadRateKB', 'WriteRateKB', 'TotalRateKB', 'ReadIORate', 'WriteIORate', 'TotalIORate', 'ReadIOTime', 'WriteIOTime', 'ReadIOPct']
   
 ##############################################################
 def enumNames(cimClass):
@@ -94,26 +94,7 @@ def calculateStats(old_counters, new_counters):
       
       if (deltaTotalIO > 0) and (deltaReadIO > 0):
         stats['ReadIOPct'] = deltaReadIO / deltaTotalIO * 100
-
-      if (deltaReadKB > 0) and (deltaReadIO > 0):
-        stats['ReadSizeKB'] = deltaReadKB / deltaReadIO
-
-      if (deltaWriteKB > 0) and (deltaWriteIO > 0):
-        stats['WriteSizeKB'] = deltaWriteKB / deltaWriteIO
-                  
-      ''' Cache Hit stats - volume only '''
-      if 'ReadHitIOs' in new_counters and 'ReadHitIOs' in old_counters:
-        deltaReadHitIO = float(new_counters['ReadHitIOs'] - old_counters['ReadHitIOs'])
-        if (deltaReadIO > 0) and (deltaReadHitIO > 0):
-          stats['ReadCacheHit'] = deltaReadHitIO / deltaReadIO * 100
-          #print >> sys.stderr, 'deltaReadHitIOs=%d, deltaReadIOs=%d, ' % (deltaReadHitIO, deltaReadIO)
-
-      if 'WriteHitIOs' in new_counters and 'WriteHitIOs' in old_counters:
-        deltaWriteHitIO = float(new_counters['WriteHitIOs'] - old_counters['WriteHitIOs'])
-        if (deltaWriteIO > 0) and (deltaWriteHitIO > 0):
-          stats['WriteCacheHit'] = deltaWriteHitIO / deltaWriteIO * 100
-          #print >> sys.stderr, 'deltaWriteHitIOs=%d, deltaWriteIOs=%d, ' % (deltaWriteHitIO, deltaWriteIO)
-              
+                      
     else:
       print >> sys.stderr, 'timespan between samples is 0, skipping'
       
@@ -152,7 +133,7 @@ def collectStats(connection, elementType, elementClass, statisticsClass, element
 
     ''' don't proceed samples with same timestamp to prevent speed calculation errors '''
     if ('timestamp' in cached_raw_counters) and (timestamp == cached_raw_counters['timestamp']):
-      print >> sys.stderr, 'same sample: %s = %d, skipping' % (cache_key, timestamp)
+      print >> sys.stderr, 'same sample: %s = %s, skipping' % (cache_key, ps['StatisticTime'].value.datetime)
       continue
 
     ''' get current samples '''
