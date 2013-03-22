@@ -1,0 +1,20 @@
+Installation:
+1) Copy files to appropriate locations, check paths in scripts
+
+/etc/zabbix/externalscripts: (zabbix scripts)
+ svc_perf (chmod +x)
+ svc_perf_discovery (chmod +x)
+ svc_perf_discovery.py
+ svc_perf_wbem.py
+
+/etc/cron.d: (statistics polling script)
+ svc_perf_cron
+
+/var/cache/zabbix: (script-created cache files, must be persistent, rw access for zabbix user)
+ svc_perf.XXX.cache
+ svc_perf.XXX.errlog
+
+2) Import template to Zabbix from file _Special_Storwize_Perf.xml
+3) Create node with DNS name/IP address pointing to Storwize BLOCK module mgmt interface, link template _Special_Storwize_Perf
+4) Wait some time - Zabbix will call discovery script and add items to node
+5) Cron will periodically run collect script and feed stats to Zabbix
