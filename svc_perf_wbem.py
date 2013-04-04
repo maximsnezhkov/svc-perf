@@ -27,7 +27,7 @@
 # Usage:
 # svc_perf_wbem.py --cluster <cluster1> [--cluster <cluster2>...] --user <username> --password <pwd> --cachefile <path>|none
 #
-#   --cluster = Dns name or IP of Storwize V7000 block node  (not Unified mgmt node!). May be used several times to monitor some clusters.
+#   --cluster = Dns name or IP of Storwize V7000 block node  (not Unified mgmt node!). Parameter may be repeated to monitor several clusters
 #   --user    = Storwize V7000 user account with Administrator role (it seems that Monitor role is not enough)
 #   --password = User password
 #   --cachefile = Path to timestamp cache file or "none" to not use cache. Used to prevent submitting duplicate values to Zabbix.
@@ -157,7 +157,7 @@ def collectStats(connection, elementType, elementClass, statisticsClass, element
 
 ''' main script body '''
 try:
-  opts, args = getopt.getopt(sys.argv[1:], "-h", ["help", "cluster=", "user=", "password=", "cachefile="])
+  opts, args = getopt.gnu_getopt(sys.argv[1:], "-h", ["help", "cluster=", "user=", "password=", "cachefile="])
 except getopt.GetoptError, err:
   print >> sys.stderr, str(err) # will print something like "option -a not recognized"
   usage()

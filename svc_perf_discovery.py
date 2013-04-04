@@ -23,7 +23,7 @@ def usage():
   print >> sys.stderr, "Usage: svc_perf_discovery.py --cluster <cluster1> --user <username> --password <pwd>"
 
 try:
-  opts, args = getopt.getopt(sys.argv[1:], "-h", ["help", "cluster=", "user=", "password="])
+  opts, args = getopt.gnu_getopt(sys.argv[1:], "-h", ["help", "cluster=", "user=", "password="])
 except getopt.GetoptError, err:
   print >> sys.stderr, str(err)
   usage()

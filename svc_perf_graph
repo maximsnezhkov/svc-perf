@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+# IBM SVC/Storwize V7000 graph generation script for Zabbix
+#
+# 2013 Matvey Marinin
+#
+# Generates pool performance summary graphs with Zabbix API.
+# Graphs are named:
+# "Pool - <pool name> - Volume IOPS"
+# "Pool - <pool name> - Volume Throughput"
+# "Pool - <pool name> - Volume IO Time"
+# "Pool - <pool name> - MDisk IOPS"
+# "Pool - <pool name> - MDisk Throughput"
+# "Pool - <pool name> - MDisk IO Time"
+#
+# Usage:
+#   run this script from /etc/cron.d/svc_perf_cron at 15-30 min intervals
+#
+# Parameters:
+#   $1 = Comma-separated Storwize cluster name list (svc1,svc2,svc3)
+#
+
+set -e
+
+. /etc/zabbix/externalscripts/svc_perf.conf
+
+ERR_LOG=/var/cache/zabbix/svc_perf_graph.log
+
+echo >>"$ERR_LOG"
+date >>"$ERR_LOG"
+/usr/bin/python /etc/zabbix/externalscripts/svc_perf_graph.py "$DEBUG" --clusters "$1" --user "$WBEM_USER" --password "$WBEM_PWD" --zabbix_url "$ZABBIX_SERVER" --zabbix_user "$ZABBIX_USER" --zabbix_password "$ZABBIX_PASSWORD" >>"$ERR_LOG" 2>&1
+date >>"$ERR_LOG"
+ 
+
+
+
+

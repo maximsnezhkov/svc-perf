@@ -1,11 +1,15 @@
 Installation:
-1) Copy files to appropriate locations, check paths in scripts
+- Install Python modules pywbem and pyzabbix
+- Copy files to appropriate locations, check paths in scripts
 
 /etc/zabbix/externalscripts: (zabbix scripts)
  svc_perf (chmod +x)
  svc_perf_discovery (chmod +x)
  svc_perf_discovery.py
  svc_perf_wbem.py
+ svc_perf_graph.py
+ svc_perf_graph (chmod +x)
+ svc_perf.conf (configuration file)
 
 /etc/cron.d: (statistics polling script)
  svc_perf_cron
@@ -14,7 +18,12 @@ Installation:
  svc_perf.XXX.cache
  svc_perf.XXX.errlog
 
-2) Import template to Zabbix from file _Special_Storwize_Perf.xml
-3) Create node with DNS name/IP address pointing to Storwize BLOCK module mgmt interface, link template _Special_Storwize_Perf
-4) Wait some time - Zabbix will call discovery script and add items to node
-5) Cron will periodically run collect script and feed stats to Zabbix
+- Import template to Zabbix from file _Special_Storwize_Perf.xml
+- Create node with DNS name/IP address pointing to Storwize BLOCK module mgmt interface, link template _Special_Storwize_Perf
+- Create Zabbix account with admin permissions to Storwize nodes for use by svc_perf_graph
+- Connect to Storwize V7000 block module with SSH and run command:
+ startstats -interval 3
+It will change internal Storwize stats collection interval to practical value, default is too long - 15 minutes. 
+This interval must correspond to cron schedule in /etc/cron.d/svc_perf_cron
+- Wait some time for Zabbix to call discovery script and add items to node
+- Cron will run svc_perf script periodically and feed stats to Zabbix, svc_perf_graph script will generate summary graphs by pool
