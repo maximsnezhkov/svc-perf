@@ -66,8 +66,12 @@ for o, a in opts:
     usage()
     sys.exit()
 
-if debug:
-  print 'clusters:', clusters
+def debug_print(message):
+  if debug:
+    print message
+
+
+debug_print('clusters: %s' % clusters)
 
 if not clusters:
   print >> sys.stderr, '--clusters option must be set'
@@ -176,45 +180,43 @@ def updateGraphs(poolName, pool_elements, graph_templates, zabbix, zabbix_items)
       for (object_id, object_name) in pool_elements:
         for item_template in graph_template['items']:
           item_key = item_template % object_id
-          item_id, item_name = zabbix_items.get(item_key)
-          if item_id and item_name:
-            gitems.append( dict(color=colors.next(), itemid=item_id, sortorder=gitem_sortorder))
-            gitem_sortorder = gitem_sortorder + 1
+          if item_key in zabbix_items:
+            item_id, item_name = zabbix_items[item_key]
+            if item_id and item_name:
+              gitems.append( dict(color=colors.next(), itemid=item_id, sortorder=gitem_sortorder))
+              gitem_sortorder = gitem_sortorder + 1
     graph = dict(name=graph_name, height=200, width=900, graphtype=graph_template['graphtype'], gitems=gitems)
 
-    ''' update Zabbix '''
+    ## update Zabbix
     result = zabbix.graph.get(filter={'name':graph_name}, output='graphid')
     if len(result)>0:
-      ''' existing graph found '''
+      ### existing graph found
       graph['graphid'] = result[0].get('graphid')
       if graph['gitems']:
-        if debug:
-          print 'Updating graph %s: %s' % (graph_name, zabbix.graph.update(graph))
+        debug_print('Updating graph %s' % graph_name)
+        zabbix.graph.update(graph)         
       else:
-        if debug:
-          print 'Removing empty graph %s: %s' % (graph_name, zabbix.graph.delete(graph))
+        debug_print('Removing empty graph %s' % graph_name)
+        zabbix.graph.delete(graph)
     else:
       if graph['gitems']:
-        if debug:
-          print 'Creating graph %s: %s' % (graph_name, zabbix.graph.create(graph))
-     
+        debug_print('Creating graph %s' % graph_name)
+        zabbix.graph.create(graph)
+            
+
 #####################################################################################################
 # main 
 #####################################################################################################
 
-''' connect to Zabbix API '''
+## connect to Zabbix API ##
 zabbix = ZabbixAPI(zabbix_url)
 zabbix.login(zabbix_user, zabbix_password)
-if debug:
-  print "Connected to Zabbix API Version %s" % zabbix.api_version()
+debug_print('Connected to Zabbix API Version %s' % zabbix.api_version())
 
 for cluster in clusters:
-
   zabbix_items = {} # item_key -> (itemid, item_name)
   
-  if debug:
-    print "Searching zabbix items of host %s" % cluster
-
+  debug_print('Searching zabbix items of host %s' % cluster)
   items = zabbix.item.getObjects(host=cluster)
   if not items:
     print 'WARNING: ZabbixAPI.item.getObjects(host=%s) returned empty list. Check zabbix user permissions' % cluster
