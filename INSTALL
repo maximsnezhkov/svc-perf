@@ -10,6 +10,8 @@ Installation:
  svc_perf_graph.py
  svc_perf_graph (chmod +x)
  svc_perf.conf (configuration file)
+ svc_mon.py
+ svc_mon (chmod +x)
 
 /etc/cron.d: (statistics polling script)
  svc_perf_cron

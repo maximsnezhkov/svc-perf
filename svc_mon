@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# IBM SVC/Storwize V7000 operational state monitor
+#
+# 2013 Matvey Marinin
+# 
+# Usage:
+#   svc_mon <cluster1>[,cluster2...]
+#
+# 
+set -e
+
+. /etc/zabbix/externalscripts/svc_perf.conf
+
+ERR_LOG=/var/cache/zabbix/svc_mon.errlog
+
+echo >>"$ERR_LOG"
+date >>"$ERR_LOG"
+/usr/bin/python /etc/zabbix/externalscripts/svc_mon.py "$DEBUG" --clusters "$1" --user "$WBEM_USER" --password "$WBEM_PWD" 2>>"$ERR_LOG" | zabbix_sender -z 127.0.0.1 -I 127.0.0.1 -T -i - -v >>"$ERR_LOG" 2>&1
+date >>"$ERR_LOG"
+

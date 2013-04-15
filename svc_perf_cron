@@ -1,3 +1,11 @@
 # get Storwize perf stats (refreshed every 5 min)
-*/5 * * * * root /etc/zabbix/externalscripts/svc_perf svc1-blk > /dev/null 2>&1 || :
-*/5 * * * * root /etc/zabbix/externalscripts/svc_perf dev-svc1 > /dev/null 2>&1 || :
+1-59/3 * * * * root /etc/zabbix/externalscripts/svc_perf svc1-blk > /dev/null 2>&1 || :
+2-59/3 * * * * root /etc/zabbix/externalscripts/svc_perf dev-svc1 > /dev/null 2>&1 || :
+3-59/3 * * * * root /etc/zabbix/externalscripts/svc_perf svc2 > /dev/null 2>&1 || :
+
+# update pool graphs every 15 min
+*/15 * * * * root /etc/zabbix/externalscripts/svc_perf_graph svc1-blk,svc2,dev-svc1 > /dev/null 2>&1 || :
+
+# update volume/mdisk/pool operational status every 10 min
+4-59/10 * * * * root /etc/zabbix/externalscripts/svc_mon svc1-blk,svc2,dev-svc1 > /dev/null 2>&1 || :
+
