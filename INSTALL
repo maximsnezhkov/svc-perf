@@ -1,5 +1,9 @@
 Installation:
 - Install Python modules pywbem and pyzabbix
+easy_install pywbem pyzabbix
+or
+pip pywbem pyzabbix
+
 - Copy files to appropriate locations, check paths in scripts
 
 /etc/zabbix/externalscripts: (zabbix scripts)
