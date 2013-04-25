@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# IBM Storwize V7000 autodiscovery shell script for Zabbix
+#
+# 2013 Matvey Marinin
+#
+# Sends volume/mdisk/pool LLD JSON data to LLD trapper items "svc.discovery.<volume-mdisk|volume|mdisk|pool>"
+# Use with "_Special_Storwize_Perf" Zabbix template
+#
+# Usage:
+#   schedule to cron: svc_perf_discovery_sender $1 
+#
+# Parameters:
+#   $1 = Comma-separated list of SVC/Storwize cluster names (svc1,svc2,svc3)
+#
+
+set -e
+
+. /etc/zabbix/externalscripts/svc_perf.conf
+
+ERR_LOG=/var/cache/zabbix/svc_perf_discovery_sender
+
+echo start `date` $1 $2 >> "$ERR_LOG"
+/usr/bin/python /etc/zabbix/externalscripts/svc_perf_discovery_sender.py "$DEBUG" --clusters "$1" --user "$WBEM_USER" --password "$WBEM_PWD" >>"$ERR_LOG" 2>&1
+echo end `date` $1 $2 >> "$ERR_LOG"

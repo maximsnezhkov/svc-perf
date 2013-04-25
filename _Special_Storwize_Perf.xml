@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>2.0</version>
-    <date>2013-04-12T07:29:57Z</date>
+    <date>2013-04-25T13:49:53Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -28,13 +28,13 @@
             <discovery_rules>
                 <discovery_rule>
                     <name>MDisk Status</name>
-                    <type>10</type>
+                    <type>2</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>svc_perf_discovery[&quot;{HOST.CONN}&quot;,&quot;mdisk&quot;]</key>
-                    <delay>60</delay>
+                    <key>svc.discovery.mdisk</key>
+                    <delay>0</delay>
                     <status>0</status>
-                    <allowed_hosts/>
+                    <allowed_hosts>127.0.0.1</allowed_hosts>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
                     <snmpv3_authpassphrase/>
@@ -118,13 +118,13 @@
                 </discovery_rule>
                 <discovery_rule>
                     <name>Pool Status</name>
-                    <type>10</type>
+                    <type>2</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>svc_perf_discovery[&quot;{HOST.CONN}&quot;,&quot;pool&quot;]</key>
-                    <delay>180</delay>
+                    <key>svc.discovery.pool</key>
+                    <delay>0</delay>
                     <status>0</status>
-                    <allowed_hosts/>
+                    <allowed_hosts>127.0.0.1</allowed_hosts>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
                     <snmpv3_authpassphrase/>
@@ -487,13 +487,13 @@
                 </discovery_rule>
                 <discovery_rule>
                     <name>Volume-Mdisk Perf</name>
-                    <type>10</type>
+                    <type>2</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>svc_perf_discovery[&quot;{HOST.CONN}&quot;,&quot;volume-mdisk&quot;]</key>
-                    <delay>180</delay>
+                    <key>svc.discovery.volume-mdisk</key>
+                    <delay>0</delay>
                     <status>0</status>
-                    <allowed_hosts/>
+                    <allowed_hosts>127.0.0.1</allowed_hosts>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
                     <snmpv3_authpassphrase/>
@@ -1013,13 +1013,13 @@
                 </discovery_rule>
                 <discovery_rule>
                     <name>Volume Status</name>
-                    <type>10</type>
+                    <type>2</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>svc_perf_discovery[&quot;{HOST.CONN}&quot;,&quot;volume&quot;]</key>
-                    <delay>180</delay>
+                    <key>svc.discovery.volume</key>
+                    <delay>0</delay>
                     <status>0</status>
-                    <allowed_hosts/>
+                    <allowed_hosts>127.0.0.1</allowed_hosts>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
                     <snmpv3_authpassphrase/>

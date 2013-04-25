@@ -9,3 +9,6 @@
 # update volume/mdisk/pool operational status every 10 min
 4-59/10 * * * * root /etc/zabbix/externalscripts/svc_mon svc1-blk,svc2,dev-svc1 > /dev/null 2>&1 || :
 
+# discovery volume/mdisk/pool every 15 min
+6-59/15 * * * * root /etc/zabbix/externalscripts/svc_perf_discovery_sender svc1-blk,svc2,dev-svc1 > /dev/null 2>&1 || :
+
