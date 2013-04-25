@@ -27,7 +27,8 @@
 import pywbem
 import getopt, sys
 import itertools
-from pyzabbix import ZabbixAPI
+import traceback
+from pyzabbix import ZabbixAPI,ZabbixAPIException
 
 def usage():
   print >> sys.stderr, "Usage: svc_perf_graph.py [--debug] --clusters <svc1>[,<svc2>...] --user <svc_username> --password <svc_pwd> --zabbix_url <http://zabbix.domain.com> --zabbix_user <username> --zabbix_password <password>"
@@ -188,20 +189,26 @@ def updateGraphs(poolName, pool_elements, graph_templates, zabbix, zabbix_items)
     graph = dict(name=graph_name, height=200, width=900, graphtype=graph_template['graphtype'], gitems=gitems)
 
     ## update Zabbix
-    result = zabbix.graph.get(filter={'name':graph_name}, output='graphid')
-    if len(result)>0:
-      ### existing graph found
-      graph['graphid'] = result[0].get('graphid')
-      if graph['gitems']:
-        debug_print('Updating graph %s' % graph_name)
-        zabbix.graph.update(graph)         
+    try:
+      result = zabbix.graph.get(filter={'name':graph_name}, output='graphid')
+      if len(result)>0:
+        ### if existing graph found
+        graph['graphid'] = result[0].get('graphid')
+        if graph['gitems']:
+          debug_print('Updating graph: %s' % graph_name)
+          zabbix.graph.update(graph)
+        else:
+          debug_print('Removing empty graph: %s' % graph_name)
+          zabbix.graph.delete(graph['graphid'])
       else:
-        debug_print('Removing empty graph %s' % graph_name)
-        zabbix.graph.delete(graph)
-    else:
-      if graph['gitems']:
-        debug_print('Creating graph %s' % graph_name)
-        zabbix.graph.create(graph)
+        #graph not found, create new one
+        if graph['gitems']:
+          debug_print('Creating graph: %s' % graph_name)
+          zabbix.graph.create(graph)
+    except ZabbixAPIException as e:
+      print >> sys.stderr, 'ZabbixAPIException thrown on graph: %s' % graph_name
+      traceback.print_exc()
+            
             
 
 #####################################################################################################
