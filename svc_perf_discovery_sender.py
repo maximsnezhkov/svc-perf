@@ -103,7 +103,10 @@ for cluster in clusters:
     debug_print('Sending to host=%s, key=%s' % (cluster, trapper_key))
 
     #send json to LLD trapper item with zbxsend module
-    logging.basicConfig(level=logging.INFO)
+    if debug:
+      logging.basicConfig(level=logging.INFO)
+    else:
+      logging.basicConfig(level=logging.WARNING)
     send_to_zabbix([Metric(cluster, trapper_key, json_string)], 'localhost', 10051)
     debug_print('')
 

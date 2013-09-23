@@ -223,10 +223,10 @@ debug_print('Connected to Zabbix API Version %s' % zabbix.api_version())
 for cluster in clusters:
   zabbix_items = {} # item_key -> (itemid, item_name)
   
-  debug_print('Searching zabbix items of host %s' % cluster)
+  debug_print('Searching Zabbix items of node %s' % cluster)
   items = zabbix.item.getObjects(host=cluster)
   if not items:
-    print 'WARNING: ZabbixAPI.item.getObjects(host=%s) returned empty list. Check zabbix user permissions' % cluster
+    print 'WARNING: Cannot find items of Storwize node %s in Zabbix. Check Storwize node name and check Zabbix API user permissions to administer node %s in Zabbix.' % (cluster, cluster)
          
   for i in items:
     if ('key_' in i) and ('itemid' in i) and ('name' in i):

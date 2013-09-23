@@ -21,5 +21,5 @@ set -e
 ERR_LOG=/var/cache/zabbix/svc_perf_discovery_sender
 
 echo start `date` $1 $2 >> "$ERR_LOG"
-/usr/bin/python /etc/zabbix/externalscripts/svc_perf_discovery_sender.py "$DEBUG" --clusters "$1" --user "$WBEM_USER" --password "$WBEM_PWD" >>"$ERR_LOG" 2>&1
+/usr/bin/python /etc/zabbix/externalscripts/svc_perf_discovery_sender.py "$DEBUG" --clusters "$1" --user "$SVC_USER" --password "$SVC_PWD" >>"$ERR_LOG" 2>&1
 echo end `date` $1 $2 >> "$ERR_LOG"

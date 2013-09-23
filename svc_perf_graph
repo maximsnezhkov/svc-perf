@@ -17,7 +17,7 @@
 #   run this script from /etc/cron.d/svc_perf_cron at 15-30 min intervals
 #
 # Parameters:
-#   $1 = Comma-separated Storwize cluster name list (svc1,svc2,svc3)
+#   $1 = Comma-separated Storwize cluster name list (svc1,svc2,svc3). Storwize cluster name should match Storwize node name in Zabbix.
 #
 
 set -e
@@ -28,7 +28,7 @@ ERR_LOG=/var/cache/zabbix/svc_perf_graph.log
 
 echo >>"$ERR_LOG"
 date >>"$ERR_LOG"
-/usr/bin/python /etc/zabbix/externalscripts/svc_perf_graph.py "$DEBUG" --clusters "$1" --user "$WBEM_USER" --password "$WBEM_PWD" --zabbix_url "$ZABBIX_SERVER" --zabbix_user "$ZABBIX_USER" --zabbix_password "$ZABBIX_PASSWORD" >>"$ERR_LOG" 2>&1
+/usr/bin/python /etc/zabbix/externalscripts/svc_perf_graph.py "$DEBUG" --clusters "$1" --user "$SVC_USER" --password "$SVC_PWD" --zabbix_url "$ZABBIX_SERVER" --zabbix_user "$ZABBIX_USER" --zabbix_password "$ZABBIX_PASSWORD" >>"$ERR_LOG" 2>&1
 date >>"$ERR_LOG"
  
 

@@ -3,8 +3,8 @@
 #
 # IBM Storwize V7000 performance monitoring script for Zabbix
 #
-# v4
-# 2012 Matvey Marinin
+# v4.1
+# 2013 Matvey Marinin
 #
 # Returns statistics in zabbix_sender format (http://www.zabbix.com/documentation/2.2/manpages/zabbix_sender):
 # <hostname> <key> <timestamp> <value>
@@ -27,7 +27,7 @@
 # Usage:
 # svc_perf_wbem.py --cluster <cluster1> [--cluster <cluster2>...] --user <username> --password <pwd> --cachefile <path>|none
 #
-#   --cluster = Dns name or IP of Storwize V7000 block node  (not Unified mgmt node!). Parameter may be repeated to monitor several clusters
+#   --cluster = Dns name or IP of Storwize V7000 block node (not Storwize V7000 Unified mgmt node!). May be used several times to monitor some clusters.
 #   --user    = Storwize V7000 user account with Administrator role (it seems that Monitor role is not enough)
 #   --password = User password
 #   --cachefile = Path to timestamp cache file or "none" to not use cache. Used to prevent submitting duplicate values to Zabbix.
@@ -60,10 +60,6 @@ def enumNames(cimClass):
 def calculateStats(old_counters, new_counters):
   ''' Calculate perf statistic values from raw counters '''
   stats = {}
-
-  #debug
-  #print >> sys.stderr, 'cached:', old_counters
-  #print >> sys.stderr, 'current:', new_counters
 
   ''' check that we have timestamp in cached sample '''
   if 'timestamp' in old_counters:
@@ -117,9 +113,6 @@ def collectStats(connection, elementType, elementClass, statisticsClass, element
     elementName = names[elementID]
     ps = stat.properties
 
-    #debug
-    print >> sys.stderr
-    print >> sys.stderr, elementID, elementName
     
     timestamp = calendar.timegm(ps['StatisticTime'].value.datetime.timetuple())
     
