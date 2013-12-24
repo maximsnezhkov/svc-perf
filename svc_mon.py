@@ -97,7 +97,7 @@ for cluster in clusters:
     printPool( 'totalSpace', pool.properties['TotalManagedSpace'].value )
     printPool( 'usedCapacity', pool.properties['UsedCapacity'].value )
     printPool( 'realCapacity', pool.properties['RealCapacity'].value )
-    printPool( 'freeCapacity', pool.properties['TotalManagedSpace'].value - pool.properties['UsedCapacity'].value )
+    printPool( 'freeCapacity', pool.properties['TotalManagedSpace'].value - pool.properties['RealCapacity'].value )
 
 
   #<hostname> <key> <timestamp> <value>

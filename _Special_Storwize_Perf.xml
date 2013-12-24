@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>2.0</version>
-    <date>2013-09-23T09:49:56Z</date>
+    <date>2013-12-24T07:50:42Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -430,7 +430,7 @@
                             <type>0</type>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{_Special_Storwize_Perf:svc.pool.overallocation[{#ID}].last(0)}&gt;100 &amp; {_Special_Storwize_Perf:svc.pool.freeCapacity[{#ID}].last(0)}/{_Special_Storwize_Perf:svc.pool.totalSpace[{#ID}].last(0)}&lt;0.15</expression>
+                            <expression>{_Special_Storwize_Perf:svc.pool.overallocation[{#ID}].last(0)}&gt;100  &amp; {_Special_Storwize_Perf:svc.pool.freeCapacity[{#ID}].last(0)}&gt;100G &amp; {_Special_Storwize_Perf:svc.pool.freeCapacity[{#ID}].last(0)}/{_Special_Storwize_Perf:svc.pool.totalSpace[{#ID}].last(0)}&lt;0.15</expression>
                             <name>Pool {#NAME}: Free space &lt; 15% ({ITEM.LASTVALUE2} left)</name>
                             <url/>
                             <status>0</status>
@@ -903,7 +903,17 @@
                             <valuemap/>
                         </item_prototype>
                     </item_prototypes>
-                    <trigger_prototypes/>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{_Special_Storwize_Perf:svc.TotalIORate[{#TYPE},{#ID}].max(4w)}&lt;100</expression>
+                            <name>{HOST.NAME}: {#TYPE}.{#NAME} seems to be not used ({ITEM.VALUE1} for last month)</name>
+                            <url/>
+                            <status>0</status>
+                            <priority>0</priority>
+                            <description>Индикация предположительно неиспользуемых volume (не более 100 iops за последний месяц)</description>
+                            <type>0</type>
+                        </trigger_prototype>
+                    </trigger_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
                             <name>{#TYPE} - {#NAME} - IOPS</name>
@@ -1148,6 +1158,16 @@
         </template>
     </templates>
     <triggers>
+        <trigger>
+            <expression>{_Special_Storwize_Perf:svc_status.sh[&quot;{HOST.CONN}&quot;].nodata(12h)}#0</expression>
+            <name>{HOST.NAME}: Storwize status - Nodata</name>
+            <url/>
+            <status>0</status>
+            <priority>2</priority>
+            <description>Нет данных по состоянию Storwize</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
         <trigger>
             <expression>{_Special_Storwize_Perf:svc_status.sh[&quot;{HOST.CONN}&quot;].last(0)}&gt;0</expression>
             <name>{HOST.NAME}: Есть ошибки ({ITEM.LASTVALUE1} шт.)</name>
