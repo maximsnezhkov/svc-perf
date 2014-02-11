@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>2.0</version>
-    <date>2013-12-24T07:50:42Z</date>
+    <date>2014-02-11T12:32:12Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -40,9 +40,12 @@
                     <allowed_hosts/>
                     <units/>
                     <delta>0</delta>
+                    <snmpv3_contextname/>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
                     <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
                     <snmpv3_privpassphrase/>
                     <formula>1</formula>
                     <delay_flex/>
@@ -75,9 +78,12 @@
                     <delay>0</delay>
                     <status>0</status>
                     <allowed_hosts>127.0.0.1</allowed_hosts>
+                    <snmpv3_contextname/>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
                     <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
                     <snmpv3_privpassphrase/>
                     <delay_flex/>
                     <params/>
@@ -107,9 +113,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units/>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -155,6 +164,7 @@
                         </trigger_prototype>
                     </trigger_prototypes>
                     <graph_prototypes/>
+                    <host_prototypes/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>Pool Status</name>
@@ -165,9 +175,12 @@
                     <delay>0</delay>
                     <status>0</status>
                     <allowed_hosts>127.0.0.1</allowed_hosts>
+                    <snmpv3_contextname/>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
                     <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
                     <snmpv3_privpassphrase/>
                     <delay_flex/>
                     <params/>
@@ -197,9 +210,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>B</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -236,9 +252,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units/>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -277,9 +296,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>%</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -316,9 +338,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>B</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -355,9 +380,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>B</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -394,9 +422,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>B</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -421,8 +452,8 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{_Special_Storwize_Perf:svc.pool.overallocation[{#ID}].last(0)}&gt;100 &amp; {_Special_Storwize_Perf:svc.pool.freeCapacity[{#ID}].last(0)}&lt;100G</expression>
-                            <name>Pool {#NAME}: Critical: Free space &lt; 100 Gb ({ITEM.LASTVALUE2} left)</name>
+                            <expression>{_Special_Storwize_Perf:svc.pool.overallocation[{#ID}].last(0)}&gt;100 &amp; {_Special_Storwize_Perf:svc.pool.freeCapacity[{#ID}].last(0)}&lt;300G</expression>
+                            <name>Pool {#NAME}: Critical: Free space &lt; 300 Gb ({ITEM.LASTVALUE2} left)</name>
                             <url/>
                             <status>0</status>
                             <priority>4</priority>
@@ -430,8 +461,8 @@
                             <type>0</type>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{_Special_Storwize_Perf:svc.pool.overallocation[{#ID}].last(0)}&gt;100  &amp; {_Special_Storwize_Perf:svc.pool.freeCapacity[{#ID}].last(0)}&gt;100G &amp; {_Special_Storwize_Perf:svc.pool.freeCapacity[{#ID}].last(0)}/{_Special_Storwize_Perf:svc.pool.totalSpace[{#ID}].last(0)}&lt;0.15</expression>
-                            <name>Pool {#NAME}: Free space &lt; 15% ({ITEM.LASTVALUE2} left)</name>
+                            <expression>{_Special_Storwize_Perf:svc.pool.overallocation[{#ID}].last(0)}&gt;100  &amp; {_Special_Storwize_Perf:svc.pool.freeCapacity[{#ID}].last(0)}&gt;300G &amp;{_Special_Storwize_Perf:svc.pool.freeCapacity[{#ID}].last(0)}/{_Special_Storwize_Perf:svc.pool.totalSpace[{#ID}].last(0)}&lt;0.15</expression>
+                            <name>Pool {#NAME}: High usage ({ITEM.LASTVALUE2} left)</name>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
@@ -524,6 +555,7 @@
                             </graph_items>
                         </graph_prototype>
                     </graph_prototypes>
+                    <host_prototypes/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>Volume-Mdisk Perf</name>
@@ -534,9 +566,12 @@
                     <delay>0</delay>
                     <status>0</status>
                     <allowed_hosts>127.0.0.1</allowed_hosts>
+                    <snmpv3_contextname/>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
                     <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
                     <snmpv3_privpassphrase/>
                     <delay_flex/>
                     <params/>
@@ -566,9 +601,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>%</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -605,9 +643,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>iops</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -644,9 +685,12 @@
                             <allowed_hosts/>
                             <units>ms</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -683,9 +727,12 @@
                             <allowed_hosts/>
                             <units>bytes</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1024</formula>
                             <delay_flex/>
@@ -722,9 +769,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>iops</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -761,9 +811,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>bytes</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1024</formula>
                             <delay_flex/>
@@ -800,9 +853,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>iops</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -839,9 +895,12 @@
                             <allowed_hosts/>
                             <units>ms</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -878,9 +937,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units>bytes</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1024</formula>
                             <delay_flex/>
@@ -903,17 +965,7 @@
                             <valuemap/>
                         </item_prototype>
                     </item_prototypes>
-                    <trigger_prototypes>
-                        <trigger_prototype>
-                            <expression>{_Special_Storwize_Perf:svc.TotalIORate[{#TYPE},{#ID}].max(4w)}&lt;100</expression>
-                            <name>{HOST.NAME}: {#TYPE}.{#NAME} seems to be not used ({ITEM.VALUE1} for last month)</name>
-                            <url/>
-                            <status>0</status>
-                            <priority>0</priority>
-                            <description>Индикация предположительно неиспользуемых volume (не более 100 iops за последний месяц)</description>
-                            <type>0</type>
-                        </trigger_prototype>
-                    </trigger_prototypes>
+                    <trigger_prototypes/>
                     <graph_prototypes>
                         <graph_prototype>
                             <name>{#TYPE} - {#NAME} - IOPS</name>
@@ -1060,6 +1112,7 @@
                             </graph_items>
                         </graph_prototype>
                     </graph_prototypes>
+                    <host_prototypes/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>Volume Status</name>
@@ -1070,9 +1123,12 @@
                     <delay>0</delay>
                     <status>0</status>
                     <allowed_hosts>127.0.0.1</allowed_hosts>
+                    <snmpv3_contextname/>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
                     <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
                     <snmpv3_privpassphrase/>
                     <delay_flex/>
                     <params/>
@@ -1102,9 +1158,12 @@
                             <allowed_hosts>127.0.0.1</allowed_hosts>
                             <units/>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -1150,6 +1209,7 @@
                         </trigger_prototype>
                     </trigger_prototypes>
                     <graph_prototypes/>
+                    <host_prototypes/>
                 </discovery_rule>
             </discovery_rules>
             <macros/>
