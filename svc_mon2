@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# svc_mon2 <svc_dns_name> <svc_host> [<--unified>]
+#
+. /etc/zabbix/externalscripts/svc_perf.conf
+
+ERR_LOG=/var/log/zabbix/svc_mon2.log
+
+DEBUG=--debug
+
+echo >>"$ERR_LOG"
+echo "$1" "$2" "$3" $(date) >>"$ERR_LOG"
+/usr/bin/python /etc/zabbix/externalscripts/svc_mon2.py "$DEBUG" --svc "$1" "$3" --user "$SVC_USER" --password "$SVC_PWD" --host "$2" >>"$ERR_LOG" 2>&1
+STATUS="$?"
+echo "$1" "$2" "$3" $(date) >>"$ERR_LOG"
+echo "$STATUS"
+
+
+
+
+
+

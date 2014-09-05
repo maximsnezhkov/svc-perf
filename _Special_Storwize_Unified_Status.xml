@@ -1,0 +1,908 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>2.0</version>
+    <date>2014-09-05T12:26:29Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>_Special_Storwize_Unified_Status</template>
+            <name>_Special_Storwize_Unified_Status</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Storwize Status</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Storwize - External storage status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.status.externalStorage</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Storwize - Internal storage status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.status.internalStorage</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Storwize - Remote partnerships status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.status.remotePartnerships</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Storwize - svc_mon2 script</name>
+                    <type>10</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>svc_mon2[&quot;{HOST.CONN}&quot;,&quot;{HOST.NAME}&quot;, &quot;--unified&quot;]</key>
+                    <delay>180</delay>
+                    <history>1</history>
+                    <trends>1</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                </item>
+                <item>
+                    <name>Storwize Unified - Cluster config status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.unified.status.clusterConfig</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Storwize Unified - Cluster management status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.unified.status.clusterManagement</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Storwize Unified - File services status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.unified.status.fileServices</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Storwize Unified - Filesystem status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.unified.status.fileSystem</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Storwize Unified - Hardware status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.unified.status.hardware</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Storwize Unified - Network status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.unified.status.network</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Storwize Unified - Node status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.unified.status.nodeState</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Storwize Unified - Performance status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.unified.status.performance</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Storwize Unified - Storage connection status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.unified.status.storageConnection</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Storwize Unified - Unknown status</name>
+                    <type>2</type>
+                    <snmp_community/>
+                    <multiplier>0</multiplier>
+                    <snmp_oid/>
+                    <key>custom.svc.unified.status.unknown</key>
+                    <delay>0</delay>
+                    <history>3</history>
+                    <trends>14</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Storwize Status</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Storwize connection status</name>
+                    </valuemap>
+                </item>
+            </items>
+            <discovery_rules/>
+            <macros/>
+            <templates/>
+            <screens/>
+        </template>
+    </templates>
+    <triggers>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.clusterConfig.last()}=1</expression>
+            <name>{HOST.NAME}: Cluster config status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>Cluster config status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.clusterConfig.last()}=2</expression>
+            <name>{HOST.NAME}: Cluster config status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Cluster config status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.clusterManagement.last()}=2</expression>
+            <name>{HOST.NAME}: Cluster management status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Cluster management status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.clusterManagement.last()}=1</expression>
+            <name>{HOST.NAME}: Cluster management status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>Cluster management status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.status.externalStorage.last()}=2</expression>
+            <name>{HOST.NAME}: External storage status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>External storage status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.status.externalStorage.last()}=1</expression>
+            <name>{HOST.NAME}: External storage status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>External storage status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.fileServices.last()}=2</expression>
+            <name>{HOST.NAME}: File services status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>File services status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.fileServices.last()}=1</expression>
+            <name>{HOST.NAME}: File services status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>File services status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.fileSystem.last()}=2</expression>
+            <name>{HOST.NAME}: Filesystem status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Filesystem status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.fileSystem.last()}=1</expression>
+            <name>{HOST.NAME}: Filesystem status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>Filesystem status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.hardware.last()}=2</expression>
+            <name>{HOST.NAME}: Hardware status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Hardware status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.hardware.last()}=1</expression>
+            <name>{HOST.NAME}: Hardware status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>Hardware status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.status.internalStorage.last()}=1</expression>
+            <name>{HOST.NAME}: Internal storage status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>Internal storage status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.status.internalStorage.last()}=2</expression>
+            <name>{HOST.NAME}: Internal storage status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Internal storage status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.network.last()}=1</expression>
+            <name>{HOST.NAME}: Network status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>Network status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.network.last()}=2</expression>
+            <name>{HOST.NAME}: Network status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Network status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.nodeState.last()}=2</expression>
+            <name>{HOST.NAME}: Node status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Node status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.nodeState.last()}=1</expression>
+            <name>{HOST.NAME}: Node status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>Node status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.performance.last()}=2</expression>
+            <name>{HOST.NAME}: Performance status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Performance status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.performance.last()}=1</expression>
+            <name>{HOST.NAME}: Performance status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>Performance status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.status.remotePartnerships.last()}=1</expression>
+            <name>{HOST.NAME}: Remote partnerships status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>Remote partnerships status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.status.remotePartnerships.last()}=2</expression>
+            <name>{HOST.NAME}: Remote partnerships status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Remote partnerships status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.storageConnection.last()}=2</expression>
+            <name>{HOST.NAME}: Storage connection status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Storage connection status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.storageConnection.last()}=1</expression>
+            <name>{HOST.NAME}: Storage connection status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>Storage connection status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.unknown.last()}=2</expression>
+            <name>{HOST.NAME}: Unknown service status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description>Unknown service status = Error</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{_Special_Storwize_Unified_Status:custom.svc.unified.status.unknown.last()}=1</expression>
+            <name>{HOST.NAME}: Unknown service status = {ITEM.VALUE1}</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description>Unknown service status = Degraded</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+    </triggers>
+</zabbix_export>
