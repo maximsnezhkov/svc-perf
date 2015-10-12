@@ -1,0 +1,27 @@
+"Storwize connection status":
+0 = Normal
+1 = Degraded
+2 = Error
+
+"Storwize MDisk NativeStatus":
+0 = Offline
+1 = Online
+2 = Degraded
+3 = Excluded
+4 = Degraded Paths
+5 = Degraded Port Errors
+
+"Storwize Pool NativeStatus":
+0 = Offline
+1 = Online
+2 = Degraded
+3 = Excluded
+4 = Degraded Paths
+5 = Degraded Port Errors
+
+"Storwize Volume NativeStatus":
+0 = Offline
+1 = Online
+2 = Degraded
+3 = Formatting
+
